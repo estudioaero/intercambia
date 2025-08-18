@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro con Firebase</title>
+  <script type="module">
+    // Importar Firebase desde CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    // 🔹 Configuración de tu proyecto (tal como la da Firebase Console)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCRQYiP8p0t9N86gO6lO3T4AYLYPy2XN0",
+      authDomain: "intercambia-comunidad.firebaseapp.com",
+      projectId: "intercambia-comunidad",
+      storageBucket: "intercambia-comunidad.appspot.com", // ⚠️ corregido: era .app, debe ser .appspot.com
+      messagingSenderId: "821245584931",
+      appId: "1:821245584931:web:ae58acf3448ca3597b3396"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Manejar el formulario de registro
+    window.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("registroForm");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          alert("✅ Usuario registrado: " + userCredential.user.email);
+        } catch (error) {
+          alert("❌ Error: " + error.message);
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDCRQYiP8p0t9N86gO6lO3T4AYLYPy2XN0",
+    authDomain: "intercambia-comunidad.firebaseapp.com",
+    projectId: "intercambia-comunidad",
+    storageBucket: "intercambia-comunidad.firebasestorage.app",
+    messagingSenderId: "821245584931",
+    appId: "1:821245584931:web:ae58acf3448ca3597b3396"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+  <h2>Registro de Usuario</h2>
+  <form id="registroForm">
+    <input type="email" id="email" placeholder="Correo electrónico" required><br><br>
+    <input type="password" id="password" placeholder="Contraseña (mínimo 6 caracteres)" required><br><br>
+    <button type="submit">Registrar</button>
+  </form>
+</body>
+</html>
